@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Love Page 🔐💖</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    overflow-x: hidden;
+}
+
+/* ===== LOGIN SCREEN ===== */
+#loginBox {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    background: white;
+    padding: 40px 35px;
+    border-radius: 24px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
+                0 0 30px rgba(255, 20, 147, 0.3);
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.box-icon { font-size: 3rem; margin-bottom: 10px; }
+.box h2 { font-size: 1.6rem; font-weight: 700; color: #222; margin-bottom: 4px; }
+.box p  { color: #888; font-size: 0.95rem; margin-bottom: 20px; }
+
+input[type="password"] {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1.5px solid #f0b4ce;
+    outline: none;
+    font-size: 1rem;
+    text-align: center;
+    letter-spacing: 0.15em;
+    color: #333;
+    transition: border-color .2s;
+}
+input[type="password"]:focus { border-color: #ff1493; }
+
+.unlock-btn {
+    margin-top: 14px;
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+}
+.unlock-btn:hover  { transform: scale(1.04); box-shadow: 0 6px 20px rgba(255,20,147,.4); }
+.unlock-btn:active { transform: scale(.97); }
+
+#error {
+    color: #e0005a;
+    font-size: .88rem;
+    margin-top: 12px;
+    min-height: 20px;
+    font-weight: 500;
+}
+
+/* ===== MAIN WEBSITE ===== */
+#mainSite { display: none; background: #fff; }
+
+/* HEADER */
+header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before,
+header::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.25), transparent);
+    pointer-events: none;
+}
+header::before { width: 380px; height: 380px; top: -60px; right: -60px; }
+header::after  { width: 260px; height: 260px; bottom: 60px; left: -40px; }
+
+.header-sub {
+    font-size: 1rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.7);
+    margin-bottom: 14px;
+}
+
+header h1 {
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 30px rgba(0,0,0,.15);
+    position: relative; z-index: 1;
+}
+
+header .rose { font-size: 3.5rem; margin-bottom: 18px; position: relative; z-index: 1; }
+
+header p {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    max-width: 560px;
+    line-height: 1.7;
+    color: rgba(255,255,255,.92);
+    position: relative; z-index: 1;
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,.6);
+    font-size: .85rem;
+    text-align: center;
+    animation: bounce 1.8s infinite;
+}
+
+/* SECTIONS */
+section { padding: 90px 10%; }
+
+.section-title {
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 45px;
+    background: linear-gradient(135deg, #ff1493, #ff69b4, #ff1493);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+}
+
+.about-text, .story-text, .message-text {
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: #555;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    padding: 35px 25px;
+    border-radius: 22px;
+    box-shadow: 0 8px 30px rgba(255, 20, 147, .1);
+    text-align: center;
+    border: 1px solid #ffe0ef;
+    transition: transform .3s, box-shadow .3s;
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 20, 147, .18);
+}
+.card .card-emoji { font-size: 3rem; margin-bottom: 14px; }
+.card h3 { font-size: 1.2rem; font-weight: 700; color: #222; margin-bottom: 8px; }
+.card p  { font-size: .9rem; color: #888; line-height: 1.5; }
+
+/* QUALITIES section bg */
+#qualities { background: linear-gradient(180deg, #fff5f9 0%, #fff 100%); }
+
+/* MESSAGE section */
+#message-section {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+}
+
+#message-section .section-title {
+    -webkit-text-fill-color: white;
+    background: none;
+    animation: none;
+    color: white;
+}
+
+.message-card {
+    background: rgba(255,255,255,.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 28px;
+    padding: 50px 40px;
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.message-card p {
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-weight: 500;
+}
+.message-card .big-heart { font-size: 3.5rem; margin-top: 24px; }
+
+/* FOOTER */
+footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+footer .footer-heart { font-size: 2rem; margin-bottom: 10px; }
+footer p { font-size: 1.05rem; font-weight: 500; }
+footer span { color: #888; font-size: .85rem; display: block; margin-top: 6px; }
+
+/* FLOATING HEARTS */
+.heart {
+    position: fixed;
+    top: -30px;
+    pointer-events: none;
+    animation: heartFall linear infinite;
+    z-index: 9999;
+    user-select: none;
+}
+
+/* ANIMATIONS */
+@keyframes heartFall {
+    0%   { transform: translateY(0)     rotate(0deg);  opacity: 1; }
+    100% { transform: translateY(110vh) rotate(20deg); opacity: .3; }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 0 20px rgba(255,20,147,.25); }
+    50%       { box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 0 45px rgba(255,20,147,.5); }
+}
+
+@keyframes shimmer {
+    to { background-position: 200% center; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(-8px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-8px); }
+    40%       { transform: translateX(8px); }
+    60%       { transform: translateX(-6px); }
+    80%       { transform: translateX(6px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeIn .7s ease both; }
+.shake   { animation: shake .4s ease; }
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginBox">
+    <div class="box" id="loginCard">
+        <div class="box-icon">🔐</div>
+        <h2>Secret Access</h2>
+        <p>Only for Zarah 💖</p>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter password"
+            onkeydown="if(event.key==='Enter') checkPassword()"
+        >
+
+        <button class="unlock-btn" onclick="checkPassword()">Unlock 💝</button>
+
+        <div id="error"></div>
+    </div>
+</div>
+
+<!-- ================= MAIN SITE ================= -->
+<div id="mainSite">
+
+    <!-- HEADER -->
+    <header>
+        <p class="header-sub">A Secret Page</p>
+        <h1>Dear Zarah 🌹</h1>
+        <div class="rose">🌹</div>
+        <p>
+            This little corner of the internet is dedicated to someone
+            who has brought smiles, happiness, and beautiful moments into my life.
+            Thank you for being the wonderful person that you are. 💖
+        </p>
+        <div class="scroll-hint">Scroll down ↓</div>
+    </header>
+
+    <!-- ABOUT -->
+    <section>
+        <h2 class="section-title">The Woman Behind The Smile</h2>
+        <p class="about-text">
+            You are intelligent, kind, strong, beautiful and unique.
+            Every conversation with you leaves a positive impression.
+            There is something genuinely special about the way you carry yourself —
+            with grace, warmth, and an effortless light that draws people in.
+        </p>
+    </section>
+
+    <!-- QUALITIES -->
+    <section id="qualities">
+        <h2 class="section-title">Things I Admire About You</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-emoji">😊</div>
+                <h3>Smile</h3>
+                <p>Your smile lights up every room</p>
+            </div>
+            <div class="card">
+                <div class="card-emoji">🌹</div>
+                <h3>Kindness</h3>
+                <p>The warmth you show to everyone</p>
+            </div>
+            <div class="card">
+                <div class="card-emoji">✨</div>
+                <h3>Energy</h3>
+                <p>Your vibrant, infectious spirit</p>
+            </div>
+            <div class="card">
+                <div class="card-emoji">👑</div>
+                <h3>Character</h3>
+                <p>The strength of who you are</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section>
+        <h2 class="section-title">Our Story</h2>
+        <p class="story-text">
+            Every beautiful journey begins with a single step.
+            I'm grateful our paths crossed — it feels like the kind of encounter
+            that changes things for the better, quietly and genuinely. ✨
+        </p>
+    </section>
+
+    <!-- MESSAGE -->
+    <section id="message-section">
+        <h2 class="section-title">A Message For You</h2>
+        <div class="message-card">
+            <p>
+                Thank you for being yourself. You are appreciated more than you know.
+                The world is genuinely better because you're in it —
+                and I mean that with every word.
+            </p>
+            <div class="big-heart">💖</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-heart">❤️</div>
+        <p>Made With Love For Zarah</p>
+        <span>Forever & Always 🌹</span>
+    </footer>
+
+</div>
+
+<script>
+function checkPassword() {
+    const pass = document.getElementById("password").value;
+
+    if (pass === "hammasadeeq") {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("mainSite").style.display = "block";
+        document.body.style.background = "#fff";
+        startHearts();
+    } else {
+        const card = document.getElementById("loginCard");
+        const err  = document.getElementById("error");
+        err.innerText = "Wrong password 💔 Try again";
+        card.classList.remove("shake");
+        void card.offsetWidth;
+        card.classList.add("shake");
+    }
+}
+
+function startHearts() {
+    const emojis = ["❤️", "💖", "💗", "💓", "💕", "🌹", "💝"];
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+        heart.style.left              = Math.random() * 100 + "vw";
+        heart.style.fontSize          = (Math.random() * 18 + 14) + "px";
+        heart.style.animationDuration = (Math.random() * 5 + 6) + "s";
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 11000);
+    }, 280);
+}
+</script>
+
+</body>
+</html>
